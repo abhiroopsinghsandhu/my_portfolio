@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>IELTS Institute Analytics Project</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <style>
+    .query-block {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+    .query-img {
+      max-width: 300px;
+      height: auto;
+      border: 1px solid #ccc;
+    }
+    .query-text code {
+      display: block;
+      background: #111;
+      color: #eee;
+      padding: 1rem;
+      border-radius: 8px;
+      overflow-x: auto;
+      max-width: 600px;
+    }
+    .center-img {
+      display: block;
+      margin: 20px auto;
+      max-width: 90%;
+      height: auto;
+      border: 1px solid #ccc;
+    }
+  </style>
+<header>
+    <div style="text-align: center; padding: 2rem 1rem;">
+    <nav>
+        <ul style="list-style: none; padding: 0; display: flex; justify-content: center; flex-wrap: wrap; gap: 1.5rem; font-weight: 500;">
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#projects">Projects</a></li>
+          <li><a href="index.html#experience">Experience</a></li>
+          <li><a href="index.html#education">Education</a></li>
+          <li><a href="mailto:abhiroopsinghsandhu@gmail.com">Email</a></li>
+          <li><a href="https://www.linkedin.com/in/abhiroop-singh-sandhu1111" target="_blank">LinkedIn</a></li>
+          <li><a href="resume.pdf" download>Download Resume</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  
+
+  <main class="container">
+    <section class="project-detail">
+      <h2>IELTS Institute Analytics Project</h2>
+
+      <p class="summary-text">This project focused on analyzing student and instructor data from an IELTS training institute using Survey Design, SQL and Power BI. The goal was to uncover insights that would enhance instruction quality and student outcomes.</p>
+
+      <h3>Project Goals</h3>
+      <p>The objective was to identify strengths and weaknesses across batches and instructors, based on key metrics such as student ratings, confidence levels(how confident do students feel about their results), self-study hours, and mock test scores. This helped uncover actionable insights for operational improvement.</p>
+
+      <h3>Research Design & Data Collection</h3>
+      <p>To gather data for this project, I created two main tables: <code>Student</code> and <code>Instructor</code>. Some of the survey questions and observation points used were:</p>
+      <ul>
+        <li>Student: What module do you find the most difficult?</li>
+        <li>Student: How many hours do you study per day on average?</li>
+        <li>Student: How would you rate your instructor?</li>
+        <li>Instructor: How many extra classes are students requesting from you?</li>
+        <li>Instructor: What material improvements would you suggest?</li>
+      </ul>
+      <p>Data was collected using google forms and cleaned using Excel before analysis.</p>
+
+      <h3>SQL Queries & Outputs</h3>
+
+      <h4>1. Instructor with Highest Average Student Rating</h4>
+      <div class="query-block">
+        <div class="query-text">
+          <pre><code>
+SELECT 
+    i.`Instructor Name`,
+    ROUND(AVG(s.`Instructor Rating`), 2) AS Avg_Rating,
+    RANK() OVER (ORDER BY AVG(s.`Instructor Rating`) DESC) AS Rating_Rank
+FROM 
+    Student s
+JOIN 
+    Instructor i ON s.`Class` = i.`Class`
+GROUP BY 
+    i.`Instructor Name`;
+          </code></pre>
+        </div>
+        <img src="images/q1.png" alt="Output of Query 1" class="query-img" />
+      </div>
+
+      <h4>2. Most Difficult IELTS Module</h4>
+      <div class="query-block">
+        <div class="query-text">
+          <pre><code>
+SELECT 
+    s.`Most Difficult Module`, 
+    COUNT(*) AS Count
+FROM 
+    Student s
+GROUP BY 
+    s.`Most Difficult Module`
+ORDER BY 
+    Count DESC;
+          </code></pre>
+        </div>
+        <img src="images/q2.png" alt="Output of Query 2" class="query-img" />
+      </div>
+
+      <h4>3. Average Confidence Score Per Class</h4>
+      <div class="query-block">
+        <div class="query-text">
+          <pre><code>
+SELECT 
+    s.`Class`, 
+    AVG(s.`Confidence Level`) AS Avg_Confidence
+FROM 
+    Student s
+GROUP BY 
+    s.`Class`
+ORDER BY 
+    Avg_Confidence DESC;
+          </code></pre>
+        </div>
+        <img src="images/q3.png" alt="Output of Query 3" class="query-img" />
+      </div>
+
+      <h4>4. Average Mock Test Scores per Class</h4>
+      <div class="query-block">
+        <div class="query-text">
+          <pre><code>
+SELECT 
+    s.`Class`, 
+    ROUND(AVG(`Mock Test Band Score`) * 2) / 2 AS Avg_Mock_Score
+FROM 
+    Student s
+GROUP BY 
+    s.`Class`
+ORDER BY 
+    Avg_Mock_Score DESC;
+          </code></pre>
+        </div>
+        <img src="images/q4.png" alt="Output of Query 4" class="query-img" />
+      </div>
+
+      <h4>5. Average Student Rating vs Instructor Engagement</h4>
+      <div class="query-block">
+        <div class="query-text">
+          <pre><code>
+SELECT 
+    i.`Instructor Name`,
+    AVG(s.`Instructor Rating`) AS Avg_Student_Rating,
+    i.`Student Engagement`
+FROM 
+    Student s
+JOIN 
+    Instructor i ON s.`Class` = i.`Class`
+GROUP BY 
+    i.`Instructor Name`, i.`Student Engagement`
+ORDER BY 
+    Avg_Student_Rating DESC;
+          </code></pre>
+        </div>
+        <img src="images/q5.png" alt="Output of Query 5" class="query-img" />
+      </div>
+
+      <h4>6. Instructor Workload (Student Count)</h4>
+      <div class="query-block">
+        <div class="query-text">
+          <pre><code>
+SELECT 
+    i.`Instructor Name`, 
+    COUNT(s.`Student ID`) AS Student_Count
+FROM 
+    Student s
+JOIN 
+    Instructor i ON s.`Class` = i.`Class`
+GROUP BY 
+    i.`Instructor Name`
+ORDER BY 
+    Student_Count DESC;
+          </code></pre>
+        </div>
+        <img src="images/q6.png" alt="Output of Query 6" class="query-img" />
+      </div>
+
+      <h4>7. Most difficult module per class</h4>
+      <pre><code>
+SELECT 
+    s.`Class`, 
+    s.`Most Difficult Module`, 
+    COUNT(*) AS Count
+FROM 
+    Student s
+GROUP BY 
+    s.`Class`, s.`Most Difficult Module`
+ORDER BY 
+    s.`Class`, Count DESC;
+      </code></pre>
+      <img src="images/q8.png" alt="Output of Query 8" class="center-img" />
+
+      <h4>8. Top Recurring Material Suggestions</h4>
+      <pre><code>
+SELECT 
+    i.`Material Suggestions`, 
+    COUNT(*) AS Frequency
+FROM 
+    Instructor i
+GROUP BY 
+    i.`Material Suggestions`
+ORDER BY 
+    Frequency DESC;
+      </code></pre>
+      <img src="images/q9.png" alt="Output of Query 9" class="center-img" />
+
+      <h3>Power BI Dashboards</h3>
+      <p>To visualize the insights from SQL queries, I created this dashboard in Power BI:</p>
+      <img src="images/metro.pbi.png" alt="Power BI Dashboard 1" class="center-img" />
+
+      <h3>Insights</h3>
+      <ul>
+        <li>Instructors with highest ratings also have highest engagement levels.</li>
+        <li>Mock test scores and confidence levels are correlated with self-study hours. Except for Alpha class.</li>
+        <li>Writing module is overall the toughest module for all students</li>
+    
+        <h3>Business Suggestions</h3>
+        <li>Instructors who have low level engagement scores need to be trained on engagement strategies.</li>
+        <li>Alpha Class needs to be given Special encouragement as despite being the best performing, they are not the most confident aboput their result.</li>
+        <li>Writing module Deserves special attention as most students struggle with it.</li>
+      </ul>
+      <p>This analysis was used by the institute to improve student performance and instructor effectiveness through data-driven interventions.</p>
+    </section>
+  </main>
+</body>
+</html>

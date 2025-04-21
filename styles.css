@@ -1,0 +1,346 @@
+/* Base styles */
+:root {
+  --primary-bg: #121212;
+  --secondary-bg: #1e1e1e;
+  --primary-text: #e0e0e0;
+  --secondary-text: #a0a0a0;
+  --accent-color: #ffa500;
+  --link-color: #64b5f6;
+  --border-color: #333;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--primary-bg);
+  color: var(--primary-text);
+  line-height: 1.6;
+}
+
+.dark-mode {
+  background-color: var(--primary-bg);
+  color: var(--primary-text);
+}
+
+/* Container styles */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+/* Header styles */
+header {
+  background-color: var(--secondary-bg);
+  border-bottom: 1px solid var(--border-color);
+}
+
+header img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Navigation styles */
+nav ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  font-weight: 500;
+}
+
+nav ul li a {
+  color: var(--link-color);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+nav ul li a:hover {
+  color: var(--accent-color);
+}
+
+/* Two-column layout */
+.two-column {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.left-column,
+.right-column {
+  flex: 1;
+  min-width: 300px;
+}
+
+/* Section styles */
+section {
+  margin-bottom: 2rem;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--accent-color);
+}
+
+h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: var(--accent-color);
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+/* Project styles */
+.project {
+  margin-bottom: 1.5rem;
+  background-color: var(--secondary-bg);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s;
+}
+
+.project:hover {
+  transform: translateY(-5px);
+}
+
+.project a {
+  display: block;
+  padding: 1rem;
+  color: var(--primary-text);
+  text-decoration: none;
+}
+
+.project h3 {
+  color: var(--accent-color);
+  margin-bottom: 0.5rem;
+}
+
+/* Experience and Education */
+#experience ul,
+#education ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+#experience li,
+#education li {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+#experience li:last-child,
+#education li:last-child {
+  border-bottom: none;
+}
+
+/* Project detail page styles */
+.project-detail {
+  background-color: var(--secondary-bg);
+  padding: 2rem;
+  border-radius: 10px;
+}
+
+.summary-text {
+  font-weight: 500;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+pre {
+  background-color: #1e1e1e;
+  color: #f8f8f2;
+  padding: 15px;
+  border-radius: 10px;
+  overflow-x: auto;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+code {
+  font-family: 'Courier New', monospace;
+}
+
+/* Screenshots and images */
+.screenshots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.screenshots img,
+.center-img,
+.query-img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.certificate img {
+  max-width: 400px;
+  width: 100%;
+  height: auto;
+  margin-top: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+/* Query block specific styles */
+.query-block {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+/* Footer */
+footer {
+  background-color: var(--secondary-bg);
+  color: var(--secondary-text);
+  text-align: center;
+  padding: 1rem;
+  margin-top: 2rem;
+  border-top: 1px solid var(--border-color);
+}
+
+footer p {
+  margin: 0;
+}
+
+footer a {
+  color: var(--link-color);
+  margin: 0 15px;
+  text-decoration: none;
+}
+
+footer a:hover {
+  color: var(--accent-color);
+  text-decoration: underline;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+  /* Header adjustments */
+  header div {
+    padding: 1rem 0.5rem;
+  }
+  
+  /* Adjust header flex display for mobile */
+  header div div {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  /* Make h1 smaller on mobile */
+  h1 {
+    font-size: 1.5rem;
+  }
+  
+  /* Navigation adjustments */
+  nav ul {
+    gap: 0.8rem;
+    font-size: 0.9rem;
+  }
+  
+  /* Force two-column to single column */
+  .two-column {
+    flex-direction: column;
+  }
+  
+  .left-column,
+  .right-column {
+    width: 100%;
+    min-width: 100%;
+  }
+  
+  /* Project detail adjustments */
+  .project-detail {
+    padding: 1rem;
+  }
+  
+  /* Make code blocks more mobile-friendly */
+  pre {
+    font-size: 0.8rem;
+    padding: 10px;
+  }
+  
+  /* Force query-block to stack vertically */
+  .query-block {
+    flex-direction: column;
+  }
+  
+  .query-text {
+    width: 100%;
+  }
+  
+  /* Adjust image sizing */
+  .query-img, 
+  .screenshots img {
+    max-width: 100%;
+  }
+  
+  /* Footer padding adjustment */
+  footer {
+    padding: 1rem 0.5rem;
+  }
+  
+  footer a {
+    display: block;
+    margin: 0.5rem 0;
+  }
+}
+
+/* For very small screens */
+@media screen and (max-width: 480px) {
+  /* Further reduce font sizes */
+  body {
+    font-size: 0.9rem;
+  }
+  
+  h1 {
+    font-size: 1.3rem;
+  }
+  
+  h2 {
+    font-size: 1.2rem;
+  }
+  
+  h3 {
+    font-size: 1.1rem;
+  }
+  
+  /* Make navigation even more compact */
+  nav ul {
+    gap: 0.5rem;
+    font-size: 0.85rem;
+  }
+  
+  /* Reduce padding to maximize content area */
+  .container {
+    padding: 0.5rem;
+  }
+  
+  .project-detail {
+    padding: 0.8rem;
+  }
+}

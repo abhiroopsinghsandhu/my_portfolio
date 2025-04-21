@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Project 2 - PwC Switzerland Power BI Simulation</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <style>
+    .screenshots {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .screenshots img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    .certificate img {
+      max-width: 400px;
+      width: 100%;
+      height: auto;
+      margin-top: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body class="dark-mode">
+  <header>
+    <div style="text-align: center; padding: 2rem 1rem;">
+      
+      <nav>
+        <ul style="list-style: none; padding: 0; display: flex; justify-content: center; flex-wrap: wrap; gap: 1.5rem; font-weight: 500;">
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#projects">Projects</a></li>
+          <li><a href="index.html#experience">Experience</a></li>
+          <li><a href="index.html#education">Education</a></li>
+          <li><a href="mailto:abhiroopsinghsandhu@gmail.com">Email</a></li>
+          <li><a href="https://www.linkedin.com/in/abhiroop-singh-sandhu1111" target="_blank">LinkedIn</a></li>
+          <li><a href="resume.pdf" download>Download Resume</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  
+
+  <main class="container">
+    <section class="project-detail">
+      <h2>PwC Switzerland Power BI Job Simulation</h2>
+
+      <!-- 👇 Project Summary -->
+      <p class="summary-text">
+        Participated in the PwC Switzerland Power BI Simulation through Forage. Developed three professional dashboards addressing HR insights, customer churn, and call centre metrics. Strengthened my analytical, visualization, and business storytelling abilities.
+      </p>
+
+      <!-- 👇 Project Goals -->
+      <h3>Project Goals</h3>
+      <p>
+        The goal was to analyze real-world HR datasets and simulate a client engagement experience. I created dashboards to visualize key performance indicators (KPIs), diagnose gender imbalance at the executive level, evaluate churn risk, and assess call centre performance. Deliverables included data-driven insights and concise client-facing email communication.
+      </p>
+
+      <!-- 👇 Inline Code Example -->
+      <p>Example DAX logic used to filter data: <code>Gender = "Female"</code></p>
+
+      <!-- 👇 Code Block -->
+      <h3>Example DAX Measure</h3>
+      <pre><code>
+% of Female Executives = 
+DIVIDE(
+  CALCULATE(COUNTROWS(EmployeeData), 
+            EmployeeData[Gender] = "Female" && 
+            EmployeeData[Level] = "Executive"),
+  CALCULATE(COUNTROWS(EmployeeData), 
+            EmployeeData[Level] = "Executive")
+)
+      </code></pre>
+
+      <!-- 👇 Screenshots -->
+      <h3>Screenshots / Outputs</h3>
+      <div class="screenshots">
+        <img src="images/hr.pbi.png" alt="HR Diversity Dashboard" />
+        <img src="images/churn.pbi.png" alt="Employee Churn Dashboard" />
+        <img src="images/callcentre.pbi.png" alt="Call Centre Performance Dashboard" />
+      </div>
+
+      <!-- 👇 Approach -->
+      <h3>Approach & Tools Used</h3>
+      <p>
+        - Imported and cleaned HR-related data in Power BI<br/>
+        - Built three dashboards:
+        <ul>
+          <li><strong>HR Dashboard:</strong> Identified root causes of gender imbalance at executive levels</li>
+          <li><strong>Churn Dashboard:</strong> Highlighted potential churn trends across departments</li>
+          <li><strong>Call Centre Dashboard:</strong> Evaluated performance metrics like average handling time and satisfaction rate</li>
+        </ul>
+      </p>
+
+      <!-- 👇 Insights -->
+      <h3>Insights & Results</h3>
+      <p>
+        The analysis uncovered gender-related disparities in promotion pipelines, helping frame diversity discussions at leadership levels. Churn patterns revealed specific risk-prone segments, and call centre metrics informed staffing and training recommendations. The project emphasized the importance of clear visuals and concise business communication.
+      </p>
+
+      <!-- 👇 Certificate -->
+      <h3>Certificate</h3>
+      <p>Successfully completed the PwC Switzerland Power BI Simulation via Forage in November 2024.</p>
+      <div class="certificate">
+        <img src="images/cert.pbi.png" alt="PwC Switzerland Power BI Certificate" />
+      </div>
+    </section>
+  </main>
+</body>
+</html>

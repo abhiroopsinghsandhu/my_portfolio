@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Project 4</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <style>
+    .explanation {
+      color: #FFA500;
+      margin-bottom: 20px;
+    }
+    h2 {
+      color: #996300;
+      margin-top: 40px;
+    }
+    h3 {
+      color: #CC8400;
+      margin-top: 30px;
+    }
+    .image-container {
+      text-align: center;
+      margin: 20px 0;
+    }
+    .image-container img {
+      display: block;
+      margin: 0 auto;
+      max-width: 100%;
+    }
+    pre {
+      background-color: #1e1e1e;
+      color: #f8f8f2;
+      padding: 15px;
+      border-radius: 10px;
+      overflow-x: auto;
+    }
+    code {
+      font-family: 'Courier New', monospace;
+    }
+    footer {
+      background-color: #333;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      margin-top: 40px;
+    }
+    footer a {
+      color: #FFA500;
+      margin: 0 15px;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body class="dark-mode">
+  <header>
+    <div style="text-align: center; padding: 2rem 1rem;">
+     <nav>
+        <ul style="list-style: none; padding: 0; display: flex; justify-content: center; flex-wrap: wrap; gap: 1.5rem; font-weight: 500;">
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#projects">Projects</a></li>
+          <li><a href="index.html#experience">Experience</a></li>
+          <li><a href="index.html#education">Education</a></li>
+          <li><a href="mailto:abhiroopsinghsandhu@gmail.com">Email</a></li>
+          <li><a href="https://www.linkedin.com/in/abhiroop-singh-sandhu1111" target="_blank">LinkedIn</a></li>
+          <li><a href="resume.pdf" download>Download Resume</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  
+
+  <main class="container">
+    <section class="project-detail">
+      <h2>Deaths by Causes: Turning Global Mortality Data into Healthcare Insights</h2>
+
+      <h3>About the Dataset</h3>
+      <p class="summary-text">
+        The dataset I used is called "Death by Causes" (from Kaggle), which contains global mortality data compiled across countries and years. It captures the number of deaths attributed to a wide range of causes — from cardiovascular diseases and cancer to environmental factors, infectious diseases, and self-harm.
+      </p>
+      <p>
+        Each record includes the year, country, and deaths due to specific causes like HIV/AIDS, diabetes, neoplasms, etc. This kind of granular data empowers public health officials and researchers to make smarter, informed decisions.
+      </p>
+
+      <h3>Why This Project Matters to Me</h3>
+      <p>
+        I chose this project not just to practice SQL, but because I genuinely care about what the data represents. Behind every data point is a life affected. This project reflects my desire to work in healthcare analytics and make a meaningful impact.
+      </p>
+
+      <p>
+        I used SQL not just to write queries, but to ask real questions:<br>
+        - Where are people dying the most from preventable diseases?<br>
+        - Which countries have shown progress?<br>
+        - Are we addressing mental health seriously enough?
+      </p>
+
+      <h3>Cardiovascular Deaths (Latest Year)</h3>
+      <p class="explanation">
+        I started with this query because heart disease is one of the leading global killers. This helps identify where urgent action is needed.
+      </p>
+      <div class="image-container">
+        <img src="images/IM1.png" alt="Cardiovascular Deaths" />
+      </div>
+      <pre><code>
+USE `death-by-causes`;
+
+-- Remove regions and keep only actual countries (based on Britannica list)
+DELETE FROM deaths
+WHERE Entity NOT IN ('Afghanistan', 'Albania', ..., 'Zimbabwe');
+
+-- Top countries by heart disease deaths in 2016
+SELECT Entity, `Cardiovascular diseases`
+FROM deaths
+WHERE Year = 2016 AND `Cardiovascular diseases` IS NOT NULL
+ORDER BY `Cardiovascular diseases` DESC
+LIMIT 10;
+      </code></pre>
+
+      <h3>Cardiovascular Deaths Over the Years in US</h3>
+      <p class="explanation">
+        This query gives a timeline of heart disease deaths in the US, helpful for understanding long-term trends.
+      </p>
+      <div class="image-container">
+        <img src="images/IM2.png" alt="Cardiovascular Deaths in US" />
+      </div>
+      <pre><code>
+SELECT Year, `Cardiovascular diseases`
+FROM deaths
+WHERE Entity = 'United States'
+ORDER BY Year;
+      </code></pre>
+
+      <h3>Total Cancer (Neoplasms) Deaths by Country</h3>
+      <p class="explanation">
+        Shows long-term cancer impact globally, identifying countries with consistently high mortality rates.
+      </p>
+      <div class="image-container">
+        <img src="images/IM3.png" alt="Cancer Deaths by Country" />
+      </div>
+      <pre><code>
+SELECT Entity, SUM(`Neoplasms`) AS TotalNeoplasmsDeaths
+FROM deaths
+GROUP BY Entity
+ORDER BY TotalNeoplasmsDeaths DESC
+LIMIT 10;
+      </code></pre>
+
+      <h3>Lowest Average Self-Harm Deaths</h3>
+      <p class="explanation">
+        Highlights countries doing well on mental health, possibly due to strong support systems or awareness programs.
+      </p>
+      <div class="image-container">
+        <img src="images/IM4.png" alt="Self Harm Statistics" />
+      </div>
+      <pre><code>
+SELECT Entity, AVG(`Self-harm`) AS avg_self_harm_deaths
+FROM deaths
+GROUP BY Entity
+ORDER BY avg_self_harm_deaths ASC
+LIMIT 10;
+      </code></pre>
+
+      <h3>Rising Diabetes Deaths in Recent Years</h3>
+      <p class="explanation">
+        Tracks countries where diabetes deaths have been rising in the past few years.
+      </p>
+      <div class="image-container">
+        <img src="images/IM5.png" alt="Diabetes Deaths Trend" />
+      </div>
+      <pre><code>
+SELECT Year, Entity, `Diabetes mellitus`
+FROM deaths
+WHERE Year >= 2011
+ORDER BY `Diabetes mellitus` DESC
+LIMIT 10;
+      </code></pre>
+
+      <h3>HIV/AIDS Deaths Across Countries</h3>
+      <p class="explanation">
+        Compare HIV/AIDS mortality trends across four different countries.
+      </p>
+      <div class="image-container">
+        <img src="images/IM6.png" alt="HIV AIDS Statistics" />
+      </div>
+      <pre><code>
+SELECT Year, Entity, `HIV/AIDS`
+FROM deaths
+WHERE Entity IN ('South Africa', 'India', 'United States', 'Nigeria')
+ORDER BY Year, `HIV/AIDS` DESC;
+      </code></pre>
+
+      <h3>Deaths from Environmental Heat and Cold</h3>
+      <p class="explanation">
+        Evaluates environmental mortality — a growing concern due to climate change.
+      </p>
+      <div class="image-container">
+        <img src="images/IM7.png" alt="Climate-Related Deaths" />
+      </div>
+      <pre><code>
+SELECT Entity, SUM(`Environmental heat and cold exposure`) AS total_exposure_deaths
+FROM deaths
+GROUP BY Entity
+ORDER BY total_exposure_deaths DESC
+LIMIT 10;
+      </code></pre>
+
+      <h3>Maternal Disorder Deaths (Latest Year)</h3>
+      <p class="explanation">
+        A powerful metric for assessing the healthcare systems in different countries.
+      </p>
+      <div class="image-container">
+        <img src="images/IM8.png" alt="Maternal Disorder Stats" />
+      </div>
+      <pre><code>
+SELECT Entity, `Maternal disorders`
+FROM deaths
+WHERE Year = 2016
+ORDER BY `Maternal disorders` DESC
+LIMIT 10;
+      </code></pre>
+
+      <h3>Comparing Major Diseases in One Country</h3>
+      <p class="explanation">
+        A snapshot of major health concerns in the US for the year 2016.
+      </p>
+      <div class="image-container">
+        <img src="images/IM9.png" alt="Disease Breakdown" />
+      </div>
+      <pre><code>
+SELECT Entity,
+       `Cardiovascular diseases`,
+       `Neoplasms`,
+       `Chronic respiratory diseases`,
+       `Diabetes mellitus`,
+       `HIV/AIDS`
+FROM deaths
+WHERE Year = 2016 AND Entity = 'United States';
+      </code></pre>
+
+      <h3>Preventable Deaths by Country</h3>
+      <p class="explanation">
+        Shows countries where preventable deaths (from common diseases) are highest.
+      </p>
+      <div class="image-container">
+        <img src="images/IM10.png" alt="Preventable Deaths" />
+      </div>
+      <pre><code>
+SELECT Entity,
+       SUM(`Tuberculosis` + `Diarrheal diseases` + `Malaria` + `HIV/AIDS` + `Diabetes mellitus`) AS preventable_deaths
+FROM deaths
+GROUP BY Entity
+ORDER BY preventable_deaths DESC
+LIMIT 10;
+      </code></pre>
+    </section>
+  </main>
+
+  <footer>
+    <a href="https://www.linkedin.com/in/abhiroop-singh-sandhu1111" target="_blank">LinkedIn</a>
+    <a href="mailto:abhiroopsinghsandhu@gmail.com">Email Me</a>
+  </footer>
+</body>
+</html>
